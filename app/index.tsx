@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 import PlaneCard from "@/components/PlaneCard";
-import { isMobile } from "@/constants/responsives";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const planes = [
     { model: "Boeing 747", registration: "N12345", airline: "Delta" },

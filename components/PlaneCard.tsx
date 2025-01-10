@@ -1,4 +1,4 @@
-import { isMobile } from "@/constants/responsives";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import {
     Text,
     View,
@@ -17,14 +17,18 @@ export default function PlaneCard({ model, registration, airline }: Props) {
     const { width } = useWindowDimensions();
 
     const cardStyle = {
-        width: isMobile() ? width / 2 - 15 : width / 3 - 20, // 50% Mobil, 33% Web
-        height: isMobile() ? width / 2 - 15 : width / 3 - 20, // Quadratisch
+        width: useIsMobile() ? width / 2 - 15 : width / 3 - 20, // 50% Mobil, 33% Web
+        height: useIsMobile() ? width / 2 - 15 : width / 3 - 20, // Quadratisch
     };
 
     return (
         <View style={[styles.card, cardStyle]}>
             <Image
-                source={require("@/assets/images/Plane_icon.svg")}
+                source={
+                    useIsMobile()
+                        ? require("@/assets/images/Plane_icon.png")
+                        : require("@/assets/images/Plane_icon.svg")
+                }
                 style={styles.image}
             />
             <Text style={styles.title}>{model || "Unknown Model"}</Text>
