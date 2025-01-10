@@ -1,6 +1,6 @@
 import { useWindowDimensions } from "react-native";
 
-export const isMobile = (): boolean => {
+export const useIsMobile = (): boolean => {
     const { width } = useWindowDimensions();
     return width < 768; // Breakpoint für Mobile
 };
