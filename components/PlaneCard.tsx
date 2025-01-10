@@ -1,4 +1,11 @@
-import { Text, View, StyleSheet } from "react-native";
+import { isMobile } from "@/constants/responsives";
+import {
+    Text,
+    View,
+    StyleSheet,
+    Image,
+    useWindowDimensions,
+} from "react-native";
 
 type Props = {
     model: string;
@@ -7,8 +14,19 @@ type Props = {
 };
 
 export default function PlaneCard({ model, registration, airline }: Props) {
+    const { width } = useWindowDimensions();
+
+    const cardStyle = {
+        width: isMobile() ? width / 2 - 15 : width / 3 - 20, // 50% Mobil, 33% Web
+        height: isMobile() ? width / 2 - 15 : width / 3 - 20, // Quadratisch
+    };
+
     return (
-        <View style={styles.card}>
+        <View style={[styles.card, cardStyle]}>
+            <Image
+                source={require("@/assets/images/Plane_icon.svg")}
+                style={styles.image}
+            />
             <Text style={styles.title}>{model || "Unknown Model"}</Text>
             <Text style={styles.text}>{registration || "No Registration"}</Text>
             <Text style={styles.text}>{airline || "No Airline"}</Text>
@@ -26,11 +44,19 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 5,
-        elevation: 3, // Android shadow
+        elevation: 3,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    image: {
+        width: "60%",
+        height: "40%",
+        resizeMode: "contain",
     },
     title: {
         fontSize: 18,
         fontWeight: "bold",
+        marginTop: 10,
     },
     text: {
         fontSize: 14,

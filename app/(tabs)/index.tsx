@@ -1,5 +1,6 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import PlaneCard from "@/components/PlaneCard";
+import { isMobile } from "@/constants/responsives";
 
 const planes = [
     { model: "Boeing 747", registration: "N12345", airline: "Delta" },
@@ -15,22 +16,22 @@ const planes = [
 ];
 
 export default function HomeScreen() {
-    const planeList = planes.map((plane, index) => (
-        <PlaneCard key={index} {...plane} />
-    ));
-
     return (
-        <ScrollView contentContainerStyle={style.planeCardGrid}>
-            {planeList}
+        <ScrollView>
+            <View style={styles.container}>
+                {planes.map((plane, index) => (
+                    <PlaneCard key={index} {...plane} />
+                ))}
+            </View>
         </ScrollView>
     );
 }
 
-const style = StyleSheet.create({
-    planeCardGrid: {
+const styles = StyleSheet.create({
+    container: {
         display: "flex",
         flexWrap: "wrap",
+        flexDirection: "row",
         justifyContent: "space-between",
-        padding: 10,
     },
 });
