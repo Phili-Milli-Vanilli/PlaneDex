@@ -6,6 +6,7 @@ import {
     Image,
     useWindowDimensions,
 } from "react-native";
+import DB from "@/components/DB";
 
 type Props = {
     model: string;
