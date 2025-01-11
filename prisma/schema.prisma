@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model PlaneCard {
+  id            Int     @id @default(autoincrement())
+  planeModelId  Int
+  regristration String?
+  airline       String?
+
+  // 1 zu 1 
+  PlaneModel PlaneModel @relation(fields: [planeModelId], references: [id])
+}
+
+model PlaneModel {
+  id    Int     @id @default(autoincrement())
+  icao  String  @unique
+  model String?
+
+  // Rückwärtsbeziehung für später vielleicht wichtig
+  PlaneCards PlaneCard[]
+}
