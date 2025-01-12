@@ -1,6 +1,8 @@
-import { ScrollView, StyleSheet, View } from "react-native";
-import PlaneCard from "@/components/PlaneCard";
-import { useIsMobile } from "@/hooks/useIsMobile";
+import { Button, ScrollView, StyleSheet, View } from "react-native";
+import Card from "@/components/Card";
+import { PlaneModel } from "prisma/prisma-client";
+import { getPlaneModels } from "@/functions/getPlaneModels";
+import { useEffect, useState } from "react";
 
 const planes = [
     { model: "Boeing 747", registration: "N12345", airline: "Delta" },
@@ -16,11 +18,22 @@ const planes = [
 ];
 
 export default function HomeScreen() {
+    const [planeModels, setPlaneModels] = useState<PlaneModel[]>([]);
+    const [isLoding, setIsLoading] = useState(true);
+
+    const fetchData = async () => {
+        const data = await getPlaneModels();
+        setPlaneModels(data);
+        console.log(data);
+    };
+
     return (
         <ScrollView>
+            <Button title="Press Me" onPress={() => fetchData()} />
+            <View></View>
             <View style={styles.container}>
-                {planes.map((plane, index) => (
-                    <PlaneCard key={index} {...plane} />
+                {planeModels.map((model: PlaneModel, index: number) => (
+                    <Card key={index} {...model} />
                 ))}
             </View>
         </ScrollView>
