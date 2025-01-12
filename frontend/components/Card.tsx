@@ -6,7 +6,7 @@ import {
     Image,
     useWindowDimensions,
 } from "react-native";
-import { PlaneModel } from "prisma/prisma-client";
+import { type PlaneModel } from "prisma/prisma-client";
 
 type Props = PlaneModel;
 
@@ -28,8 +28,10 @@ export default function PlaneCard({ iata, icao, model, brand }: Props) {
                 }
                 style={styles.image}
             />
-            <Text style={styles.title}>{brand + model || "Unknown Model"}</Text>
-            <Text style={styles.text}>{iata + icao || "No Registration"}</Text>
+            <Text style={styles.title}>{model || "unbekanntes Model"}</Text>
+            <Text style={styles.text}>{brand || "unbekannte Marke"}</Text>
+            <Text style={styles.text}>IATA: {iata || "kein IATA-Code"}</Text>
+            <Text style={styles.text}>ICAO: {icao || "kein ICAO-Code"}</Text>
         </View>
     );
 }

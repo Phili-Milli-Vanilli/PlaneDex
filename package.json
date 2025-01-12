@@ -1,5 +1,19 @@
 {
-  "devDependencies": {
-    "concurrently": "^9.1.2"
-  }
+    "scripts": {
+        "updateDB": "cd backend && npx prisma migrate reset",
+        "start:frontend": "cd frontend && npx expo start",
+        "start:frontend:ios": "cd frontend && npx expo start --ios",
+        "start:backend": "cd backend && npm run dev",
+        "start": "concurrently -n \"Front,Back\" -c \"green.bold,grey.bold\" \"npm run start:frontend\" \"npm run start:backend\"",
+        "start:ios": "concurrently -n \"Front,Back\" -c \"green.bold,grey.bold\" \"npm run start:frontend:ios\" \"npm run start:backend\"",
+        "install:frontend": "cd frontend && npm install",
+        "install:backend": "cd backend && npm install",
+        "install": "npm i && concurrently -n \"Front,Back\" -c \"green.bold,grey.bold\" \"npm run install:frontend\" \"npm run install:backend\""
+    },
+    "devDependencies": {
+        "concurrently": "^9.1.2"
+    },
+    "dependencies": {
+        "@expo/next-adapter": "^6.0.0"
+    }
 }
