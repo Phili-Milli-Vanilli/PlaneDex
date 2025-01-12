@@ -1,50 +1,65 @@
-# Welcome to your Expo app 👋
+# Projekt-Readme: Nützliche Commands
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Voraussetzungen
 
-## Get started
+### Node.js installieren
 
-1. Install dependencies
+Falls Node.js noch nicht installiert ist, hole dir die neueste Version von der offiziellen [Node.js-Website](https://nodejs.org).
 
-   ```bash
-   npm install
-   ```
+---
 
-2. Start the app
+## Abhängigkeiten installieren
 
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Mit dem folgenden Befehl werden alle benötigten Packages für das Root-, Frontend- und Backend-Verzeichnis installiert:
 
 ```bash
-npm run reset-project
+npm run install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## Datenbank-Setup & Migration
 
-To learn more about developing your project with Expo, look at the following resources:
+### Schritt 1: Prisma Migration ausführen
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Nachdem alle Abhängigkeiten installiert sind und bei Änderungen im Prisma Schema, führe die folgenden Befehle aus, um die Datenbank zu initialisieren oder zu aktualisieren:
 
-## Join the community
+1. Navigiere in das Backend-Verzeichnis:
+    ```bash
+    cd backend
+    ```
+2. Führe die Migration aus:
+    ```bash
+    npx prisma migrate dev
+    ```
 
-Join our community of developers creating universal apps.
+Die Datenbank wird automatisch erstellt und mit Seed-Daten gefüllt.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## Zurücksetzen der Datenbank
+
+Falls du die Datenbank auf den initialen Zustand zurücksetzen möchtest, verwende diesen Befehl:
+
+```bash
+npm run updateDB
+```
+
+### **Wichtige Hinweise:**
+
+1. **Änderungen an der Datenbank werden dabei gelöscht.**  
+   Alles, was nachträglich hinzugefügt oder geändert wurde, geht verloren.
+2. **Nur die Seed-Daten werden wiederhergestellt.**  
+   Es empfiehlt sich nach jedem Pull, den `updateDB`-Befehl auszuführen, da die Datenbank nicht über Git geteilt wird.
+3. **Schema-Änderungen beachten:**  
+   Falls jemand das `prisma.schema` geändert hat, musst du den Migration-Befehl (`npx prisma migrate dev`) erneut ausführen.
+
+---
+
+## Zusammenfassung der wichtigsten Commands
+
+| Befehl                   | Beschreibung                                                                   |
+| ------------------------ | ------------------------------------------------------------------------------ |
+| `npm run install`        | Installiert alle Packages für Root, Frontend und Backend.                      |
+| `npx prisma migrate dev` | Erstellt die Datenbank und wendet Schema-Änderungen an.                        |
+| `npm run updateDB`       | Setzt die Datenbank auf den Initialzustand zurück (Seed-Daten werden geladen). |

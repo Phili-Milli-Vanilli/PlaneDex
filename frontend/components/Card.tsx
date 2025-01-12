@@ -1,0 +1,67 @@
+import { useIsMobile } from "@/hooks/useIsMobile";
+import {
+    Text,
+    View,
+    StyleSheet,
+    Image,
+    useWindowDimensions,
+} from "react-native";
+import { type PlaneModel } from "prisma/prisma-client";
+
+type Props = PlaneModel;
+
+export default function PlaneCard({ iata, icao, model, brand }: Props) {
+    const { width } = useWindowDimensions();
+
+    const cardStyle = {
+        width: useIsMobile() ? width / 2 - 15 : width / 3 - 20, // 50% Mobil, 33% Web
+        height: useIsMobile() ? width / 2 - 15 : width / 3 - 20, // Quadratisch
+    };
+
+    return (
+        <View style={[styles.card, cardStyle]}>
+            <Image
+                source={
+                    useIsMobile()
+                        ? require("@/assets/images/Plane_icon.png")
+                        : require("@/assets/images/Plane_icon.svg")
+                }
+                style={styles.image}
+            />
+            <Text style={styles.title}>{model || "unbekanntes Model"}</Text>
+            <Text style={styles.text}>{brand || "unbekannte Marke"}</Text>
+            <Text style={styles.text}>IATA: {iata || "kein IATA-Code"}</Text>
+            <Text style={styles.text}>ICAO: {icao || "kein ICAO-Code"}</Text>
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    card: {
+        backgroundColor: "#fff",
+        padding: 10,
+        margin: 5,
+        borderRadius: 8,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 3,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    image: {
+        width: "60%",
+        height: "40%",
+        resizeMode: "contain",
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: "bold",
+        marginTop: 10,
+    },
+    text: {
+        fontSize: 14,
+        color: "#555",
+    },
+});
