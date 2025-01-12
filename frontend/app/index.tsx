@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 export default function HomeScreen() {
     const [planeModels, setPlaneModels] = useState<PlaneModel[]>([]);
-    const [isLoding, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchPlaneModels = async () => {
